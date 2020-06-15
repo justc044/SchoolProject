@@ -256,11 +256,10 @@ def courses(request):
     return HttpResponse(json.dumps(json_res), content_type='application/json')
 
 @csrf_exempt
-def submitgrade(request, pk, upk):
-    userob = User.objects.get(pk=upk)
+def submitgrade(request, pk):
     grade_data = request.POST.dict()
     try: 
-        courses = Course.objects.filter(professor = userob)
+        courses = Course.objects.filter(professor = request.user)
         membergrades = MemberGrade.objects.filter(course__in=courses)
         editgrade = MemberGrade.objects.get(pk=pk)
     except (Course.DoesNotExist):
