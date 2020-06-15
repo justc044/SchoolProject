@@ -7,9 +7,15 @@
     <div class="card text-center">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="/general/displayinfo">기본정보</a>
-            </li>
+            {% if "video" in request.path %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/general/displayinfo">기본정보</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="/general/displayinfo">기본정보</a>
+                </li>
+            {% endif %}
             {% if user|has_group:"Student" %}
             <li class="nav-item">
                 <a class="nav-link" href="/general/displaygrades">성적조회</a>
@@ -17,19 +23,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="/general/regcourses">수강신청</a>
             </li>
-            </li>
-            {% endif %}
-            {% if user|has_group:"Professor" %}
-            <li class="nav-item">
-                <a class="nav-link" href="/general/managegrades">성적관리</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/general/video">인강</a>
-            </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="#">인강</a>
             </li>
+            {% endif %}
+            {% if user|has_group:"Professor" %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/general/managegrades">성적관리</a>
+                </li>
+                {% if "video" in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/general/video">인강</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/general/video">인강</a>
+                    </li>
+                {% endif %}
+            {% endif %}
             </ul>
         </div>
 

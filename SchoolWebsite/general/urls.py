@@ -18,5 +18,6 @@ urlpatterns = [
     path('courses', views.courses, name='courses'),
     path('submitgrade/<int:pk>', views.submitgrade, name='submitgrade'),
     path('video', login_required(views.showvideo), name='showvideo'),
+    path('edit_announcements', views.edit_announcements, name='edit_announcements'),
 ]
 

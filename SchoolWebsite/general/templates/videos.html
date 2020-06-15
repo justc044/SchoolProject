@@ -1,29 +1,34 @@
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Upload Videos</title>
-</head>
-<body>
-    {% if perms.general.add_course %}
-        <h1>Video Uploader</h1>
-        <form enctype="multipart/form-data" method="POST" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <!-- only show course for logged in professor -->
-        <!-- save lectureno that doesn't duplicate -->
-        <input type="submit" value="Upload"/>
-        </form>
+{% extends "header.html" %}
 
-        <br><br>
-        <video width='400' controls>
-        <source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>
-        Your browser does not support the video tag.
-        </video>
-        <br><br>
-        </p>
+{% block content %}
 
-        </body>
-        <script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'cpsh'},{'server':'p3plcpnl0769'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/tcc/tcc_l.combined.1.0.6.min.js'></script>
-    {% endif %}
+<div class="card-body">
+    <h5 class="card-title">{{ member.name }}</h5>
+        <p class="card-text">
 
-</html>
+        {% if perms.general.add_course %}
+            <h1>Video Uploader</h1>
+            <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <!-- only show course for logged in professor -->
+            <!-- save lectureno that doesn't duplicate -->
+            <input type="submit" value="Upload"/>
+            </form>
+
+            <br><br>
+            <video width='400' controls>
+            <source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>
+            Your browser does not support the video tag.
+            </video>
+            <br><br>
+            </p>
+
+            </body>
+            <script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'cpsh'},{'server':'p3plcpnl0769'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/tcc/tcc_l.combined.1.0.6.min.js'></script>
+        {% endif %}
+
+        <a href="/general/" class="btn btn-primary">뒤로</a>
+    </div>
+
+{% endblock %}

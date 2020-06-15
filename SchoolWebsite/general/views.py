@@ -274,3 +274,6 @@ def submitgrade(request, pk):
 def redirect_view(request):
     response = redirect('/general/')
     return response
+
+def edit_announcements(request):
+    return render(request, 'announcement.html')
