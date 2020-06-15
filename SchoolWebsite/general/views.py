@@ -158,6 +158,7 @@ def managegrades(request):
 def editgrades(request, pk):
     editgrade = MemberGrade.objects.get(pk=pk)
     grades = Grade.objects.all()
+    memberinfo = MemberInfo.objects.all()
     try: 
         courses = Course.objects.filter(professor = request.user)
         membergrades = MemberGrade.objects.filter(course__in=courses)
@@ -169,6 +170,7 @@ def editgrades(request, pk):
         'user': request.user,
         'courses': courses,
         'membergrades': membergrades,
+        'memberinfo': memberinfo,
         'editgrade': editgrade,
         'grades': grades
     }
