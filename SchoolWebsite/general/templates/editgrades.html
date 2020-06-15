@@ -35,11 +35,7 @@
                             <form id="grade" action="/general/submitgrade/{{ m.pk }}/{{ user.pk }}" method="post">
                             {% csrf_token %}
                                 <td>{{ m.course.name }}</td>
-                                {% for i in memberinfo %}
-                                    {% if i.user.pk == m.user.pk %}
-                                        <td>{{ i.name }}</td>
-                                    {% endif %}
-                                {% endfor %}
+                                <td>{{ i.name }}</td>
                                 <td>
                                     <select id="gradeselect" name="grade">
                                         {% for g in grades %}
