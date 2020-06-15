@@ -32,7 +32,7 @@
                       {% for m in membergrades %}
                         {% if m == editgrade %}
                         <tr>
-                            <form id="grade" action="/general/submitgrade/{{ m.pk }}/{{ user.pk }}" method="post">
+                            <form id="grade" action="/general/submitgrade/{{ m.pk }}" method="post">
                             {% csrf_token %}
                                 <td>{{ m.course.name }}</td>
                                 <td>{{ i.name }}</td>

@@ -268,7 +268,6 @@ def submitgrade(request, pk):
         membergrades = None
     grade = grade_data.get("grade")
     editgrade.grade = Grade.objects.get(value=grade)
-    print(editgrade.grade)
     editgrade.save()
     return redirect('/general/managegrades')
 
