@@ -1,0 +1,54 @@
+{% extends "headergrades.html" %}
+
+{% block content %}
+
+<style>
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+</style>
+
+    <div class="card-body">
+        <h5 class="card-title">{{ name }}</h5>
+            <p class="card-text">
+
+            <table id="managegrades" class="display" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>Course</th>
+                      <th>Student</th>
+                      <th>Grade</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for m in membergrades %}
+                  {% for i in memberinfo %}
+                    {% if m.user.userid == i.userid %}
+                    <tr>
+                        <td>{{ m.course.name }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ m.grade.value }}</td>
+                        <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
+                    </tr>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+
+            </p>
+        <a href="../" class="btn btn-primary">뒤로</a>
+    </div>
+
+
+
+{% endblock %}
