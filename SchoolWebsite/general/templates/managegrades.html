@@ -14,40 +14,40 @@
 }
 </style>
 
-    <div class="card-body">
-        <h5 class="card-title">{{ name }}</h5>
-            <p class="card-text">
+  <div class="card-body">
+      <h5 class="card-title">{{ name }}</h5>
+          <p class="card-text">
 
-            <table id="managegrades" class="display" style="width:100%">
-              <thead>
+          <table id="managegrades" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>과목</th>
+                    <th>학생</th>
+                    <th>성적</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for m in membergrades %}
                   <tr>
-                      <th>Course</th>
-                      <th>Student</th>
-                      <th>Grade</th>
-                      <th></th>
+                      <td>{{ m.course.name }}</td>
+                      {% for i in memberinfo %}
+                        {% if i.user.pk == m.user.pk %}
+                          <td>{{ i.name }}</td>
+                        {% endif %}
+                      {% endfor %}
+                      <td>{{ m.grade.value }}</td>
+                      <td><a href="/general/editgrades/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
                   </tr>
-              </thead>
-              <tbody>
-                {% for m in membergrades %}
-                  {% for i in memberinfo %}
-                    {% if m.user.userid == i.userid %}
-                    <tr>
-                        <td>{{ m.course.name }}</td>
-                        <td>{{ i.name }}</td>
-                        <td>{{ m.grade.value }}</td>
-                        <td><a href="/general/editgrades/{{ user.pk }}/{{ m.pk }}"><i class='far fa-edit'></i></a></td>
-                    </tr>
-                    {% endif %}
-                  {% endfor %}
-                {% endfor %}
-              </tbody>
-            </table>
+              {% endfor %}
+            </tbody>
+          </table>
 
 
 
-            </p>
-        <a href="../" class="btn btn-primary">뒤로</a>
-    </div>
+          </p>
+      <a href="../" class="btn btn-primary">뒤로</a>
+  </div>
 
 
 

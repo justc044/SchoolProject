@@ -115,7 +115,7 @@ def studentinfoedit(request):
             'pk': user.request.pk,
             'member': member,
         }
-        return redirect('/general/displayinfo/' + str(user.request.pk))
+        return redirect('/general/displayinfo')
     return render(request, 'displayinfo.html', context)
 
 def editgrade(request, pk):
@@ -127,7 +127,7 @@ def editgrade(request, pk):
         context={'form': form,
             'membergrade': grade,
         }
-        return redirect('/general/displaygrades/' + str(request.user.pk))
+        return redirect('/general/displaygrades')
     return render(request, 'displaygrades.html', {'form': form})
 
 def displaygrades(request):
@@ -269,7 +269,7 @@ def submitgrade(request, pk, upk):
     editgrade.grade = Grade.objects.get(value=grade)
     print(editgrade.grade)
     editgrade.save()
-    return redirect('/general/managegrades/' + str(userob.pk))
+    return redirect('/general/managegrades')
 
 def redirect_view(request):
     response = redirect('/general/')
