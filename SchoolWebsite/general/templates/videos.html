@@ -57,7 +57,7 @@
             xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I");
             xhr.send(formData);
             
-            xhttp.onreadystatechange = function() {
+            xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
 
