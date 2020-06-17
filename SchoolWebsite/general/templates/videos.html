@@ -3,11 +3,10 @@
 {% block content %}
 
 <div class="card-body">
-    <h5 class="card-title"></h5>
+    <h5 class="card-title">강의 업로드</h5>
         <p class="card-text">
 
         {% if perms.general.add_course %}
-            <h3>강의 업로드</h3>
             
             <!-- only show course for logged in professor -->
             <!-- save lectureno that doesn't duplicate -->
@@ -58,9 +57,12 @@
             xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I");
             xhr.send(formData);
             
-            if (xhr.DONE){
-                window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
-            }
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
+
+                }
+            };
 
         };
 

@@ -41,7 +41,7 @@ class Semester(models.Model):
     regopen = models.BooleanField()
 
     def __str__(self):
-        return self.year + " " + self.type
+        return self.year + " " + str(self.type)
 
 class Course(models.Model):
     name = models.CharField(max_length=100)

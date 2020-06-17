@@ -232,11 +232,14 @@ def uploadvideo(request):
     return render(request, 'videos.html', context)
 
 def showvideo(request, courseid, lectureno, videoname):
-    course = Course.objects.filter(pk = courseid)
+    course = Course.objects.filter(pk = courseid).first()
+
+    # video 정보 DB에 저장
+    v = Video(name=videoname, course=course, lectureno=lectureno)
+    v.save()
+
     context = {
-        'course': course,
-        'lectureno': lectureno,
-        'videoname': videoname
+        'video': v
     }
     return render(request, 'showvideo.html', context)
     

@@ -36,7 +36,7 @@ class GradeForm(forms.Form):
 class VideoForm(forms.ModelForm):
     class Meta:
         model= Video
-        fields= ["name", "course", "lectureno", "videofile"]
+        fields= ["name", "course", "lectureno"]
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
