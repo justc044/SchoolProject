@@ -57,7 +57,7 @@
         document.getElementById("fileSubmit").onclick = function(){
             alert('hi');
             var formData = new FormData();
-            formData.append("myFile", document.getElementById("myFileField").files[0]);
+            formData.append("myFile", document.getElementById("myFileField").files[0], document.getElementById("myFileField").files[0].name);
             
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
