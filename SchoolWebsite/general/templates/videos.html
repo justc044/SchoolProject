@@ -55,11 +55,8 @@
 
     <script>
         document.getElementById("fileSubmit").onclick = function(){
-            alert('hi');
             var formData = new FormData();
             formData.append("myFile", document.getElementById("myFileField").files[0], document.getElementById("myFileField").files[0]['name']);
-            alert(formData);
-            alert(document.getElementById("myFileField").files[0]['name']);
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -68,7 +65,7 @@
             }
             xhr.open("PUT", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/");
             
-            xhr.setRequestHeader("Content-Type", "multipart/form");
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I");
             xhr.send(formData);
 
