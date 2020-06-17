@@ -86,4 +86,4 @@ class Video(models.Model):
     lectureno = models.IntegerField()
 
     def __str__(self):
-        return self.name + ": " + str(self.videofile)
+        return self.name
