@@ -190,9 +190,9 @@ def upload(request):
 
 
 
-def showvideo(request):
+def uploadvideo(request):
 
-"""
+    """
     lastvideo= Video.objects.last()
 
     if lastvideo is not None:
@@ -223,12 +223,22 @@ def showvideo(request):
         'key': key,
         'max_file_count': max_file_count,
         'hmac_body': hmac_body}
-      """
+     """
 
-      context = {
-          
-      }
+    courses = Course.objects.filter(professor=request.user)
+    context = {
+        'courses': courses
+    }
     return render(request, 'videos.html', context)
+
+def showvideo(request, courseid, lectureno, videoname):
+    course = Course.objects.filter(pk = courseid)
+    context = {
+        'course': course,
+        'lectureno': lectureno,
+        'videoname': videoname
+    }
+    return render(request, 'showvideo.html', context)
     
 def regcourses(request):
     try: 
