@@ -56,7 +56,7 @@
     <script>
         document.getElementById("fileSubmit").onclick = function(){
             var formData = new FormData();
-            formData.apeend('myFile', file)
+            formData.append('myFile', this.file)
             //formData.append("myFile", document.getElementById("myFileField").files[0], document.getElementById("myFileField").files[0]['name']);
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
