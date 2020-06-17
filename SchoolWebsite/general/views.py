@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 import json
+import hmac
+from hashlib import sha1
+from time import time
 
 # Create your views here.
 def signup(request):
@@ -185,6 +188,8 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
+
+
 def showvideo(request):
 
     lastvideo= Video.objects.last()
@@ -199,13 +204,27 @@ def showvideo(request):
     if form.is_valid():
         form.save()
 
-    
+    path = 'v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/'
+    redirect = 'http://121.140.73.126:38080'
+    max_file_size = 5368709121
+    max_file_count = 10
+    expires = int(time() + 600)
+    key = b"MYKEY"
+    hmac_body = '%s\n%s\n%s\n%s\n%s' % (path, redirect,max_file_size, max_file_count, expires)
+    signature = hmac.new(key, hmac_body.encode('utf-8'), sha1).hexdigest()
+
+#http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/
     context= {'videofile': videofile,
-              'form': form}
-    
+        'form': form,
+        'signature': signature,
+        'expires': expires,
+        'max_file_size': max_file_size,
+        'key': key,
+        'max_file_count': max_file_count,
+        'hmac_body': hmac_body}
       
     return render(request, 'videos.html', context)
-
+    
 def regcourses(request):
     try: 
         member = MemberGrade.objects.filter(user = request.user)

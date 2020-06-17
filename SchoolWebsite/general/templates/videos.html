@@ -8,17 +8,32 @@
 
         {% if perms.general.add_course %}
             <h1>Video Uploader</h1>
-            <form enctype="multipart/form-data" method="POST" action="">
+            <!--<form enctype="multipart/form-data" method="POST" action="{{ MEDIA_URL }}">-->
+
+                <!--
             {% csrf_token %}
             {{ form.as_p }}
             <!-- only show course for logged in professor -->
             <!-- save lectureno that doesn't duplicate -->
-            <input type="submit" value="Upload"/>
-            </form>
+            <!--<input type="submit" value="Upload"/>
+            </form>-->
+""
+            <form action="{{ MEDIA_URL }}" method="POST"
+                enctype="multipart/form-data">
+            <input type="hidden" name="redirect" value="/general/video"/>
+            <input type="hidden" name="max_file_size" value="{{ max_file_size }}" />
+            <input type="hidden" name="max_file_count" value="{{ max_file_count }}" />
+            <input type="hidden" name="expires" value="{{ expires }}" />
+            <input type="hidden" name="signature" value="{{ signature }}" />
+s            <input type="file" name="filename" /><br />
+            <input type="submit" />
+          </form>
+          "<![CDATA[]]>"
 
             <br><br>
             <video width='400' controls>
-            <source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>
+            <!--<source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>-->
+            <source src='{{ MEDIA_URL }}1.%20Introduction%20to%20Superposition.mp4' type='video/mp4'>
             Your browser does not support the video tag.
             </video>
             <br><br>

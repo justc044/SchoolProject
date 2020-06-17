@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/general/'
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
