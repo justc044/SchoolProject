@@ -15,12 +15,21 @@ class Grade(models.Model):
     )
     value = models.CharField(max_length=1, choices=LETTERGRADES)
 
+    def __str__(self):
+        return self.value
+
 class Department(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class DepartmentProfessor(models.Model):
     department = models.ForeignKey(Department, on_delete = models.DO_NOTHING)
     professor = models.ForeignKey(User, limit_choices_to={'groups__name': "Professor"}, on_delete = models.DO_NOTHING)
+
+    def __str__(self):
+        return self.department + ": " + self.professor.username
 
 class Semester(models.Model):
     SEASON = (
@@ -30,6 +39,9 @@ class Semester(models.Model):
     year = models.CharField(max_length = 4)
     type = models.CharField(max_length=4, choices=SEASON)
     regopen = models.BooleanField()
+
+    def __str__(self):
+        return self.year + " " + self.type
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
@@ -72,7 +84,6 @@ class Video(models.Model):
     name= models.CharField(max_length=500)
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     lectureno = models.IntegerField()
-    videofile= models.FileField(upload_to='lectures/', null=True, verbose_name="")
 
     def __str__(self):
         return self.name + ": " + str(self.videofile)
