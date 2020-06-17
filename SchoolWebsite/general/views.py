@@ -192,6 +192,7 @@ def upload(request):
 
 def showvideo(request):
 
+"""
     lastvideo= Video.objects.last()
 
     if lastvideo is not None:
@@ -222,7 +223,11 @@ def showvideo(request):
         'key': key,
         'max_file_count': max_file_count,
         'hmac_body': hmac_body}
-      
+      """
+
+      context = {
+          
+      }
     return render(request, 'videos.html', context)
     
 def regcourses(request):

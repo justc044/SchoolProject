@@ -8,38 +8,16 @@
 
         {% if perms.general.add_course %}
             <h1>Video Uploader</h1>
-            <!--<form enctype="multipart/form-data" method="POST" action="{{ MEDIA_URL }}">-->
-
-                <!--
-            {% csrf_token %}
-            {{ form.as_p }}
+            
             <!-- only show course for logged in professor -->
             <!-- save lectureno that doesn't duplicate -->
-            <!--<input type="submit" value="Upload"/>
-            </form>-->
-
-
+            <
+            <input type="text" id="lectureno" name="lectureno"><br>
             <input type="file" id="myFileField" name="myFile" />
             <button id="fileSubmit">Submit</button>
 
-            <!--<form id="myForm" action="{{ MEDIA_URL }}" method="POST"
-                enctype="multipart/form-data">
-            
-            
-            <input type="hidden" name="X-Auth-Token" value="gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I" />
-            <input type="hidden" name="redirect" value=""/>
-            <input type="hidden" name="max_file_size" value="{{ max_file_size }}" />
-            <input type="hidden" name="max_file_count" value="{{ max_file_count }}" />
-            <input type="hidden" name="expires" value="{{ expires }}" />
-            <input type="hidden" name="signature" value="{{ signature }}" />
-            <input type="hidden" name="X-Container-Meta-Temp-URL-Key" value="MYKEY" />
-            <input type="file" name="filename" /><br />
-            <input type="submit" />
-          </form>-->
-
             <br><br>
             <video width='400' controls>
-            <!--<source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>-->
             <source src='{{ MEDIA_URL }}1.%20Introduction%20to%20Superposition.mp4' type='video/mp4'>
             Your browser does not support the video tag.
             </video>
@@ -63,7 +41,7 @@
                     alert(xhr.responseText);
                 }
             }
-            xhr.open("PUT", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/" + document.getElementById("myFileField").files[0]['name']);
+            xhr.open("PUT", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/" + "1");
             
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I");
