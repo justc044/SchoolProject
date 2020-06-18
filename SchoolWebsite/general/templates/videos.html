@@ -58,6 +58,8 @@
             xhr.send(formData);
             
             xhr.onreadystatechange = function() {
+                alert('readystate:' + this.readyState);
+                alert('status:' + this.status);
                 if (this.readyState == 4 && this.status == 200) {
                     window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
 
