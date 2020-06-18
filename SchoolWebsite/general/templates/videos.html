@@ -8,8 +8,6 @@
 
         {% if perms.general.add_course %}
 
-            <div id="loader"></div>
-            
             <!-- only show course for logged in professor -->
             <!-- save lectureno that doesn't duplicate -->
             <label for="course">Course:</label>
@@ -41,27 +39,8 @@
     </div>
 
     <script>
-        // loading
-        var myVar;
-        
-        document.getElementById('card-body').onload = function() {
-            hideLoader();
-        };
-
-        function getLoader() {
-            //myVar = setTimeout(showPage, 3000);
-            document.getElementById('contentcard').style.display = "none";
-            document.getElementById('loader').style.display = "block";
-        }
-        
-        function hideLoader() {
-            document.getElementById("loader").style.display = "none";
-            //document.getElementById("myDiv").style.display = "block";
-        }
 
         document.getElementById("fileSubmit").onclick = function(){
-
-            getLoader();
 
             // OpenStack Swift로 보냄
             var formData = new FormData();
@@ -81,7 +60,6 @@
 
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 201) {
-                    hideLoader();
                     window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
 
                 }
