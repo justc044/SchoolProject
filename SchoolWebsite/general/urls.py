@@ -20,5 +20,6 @@ urlpatterns = [
     path('video', login_required(views.uploadvideo), name='uploadvideo'),
     path('showvideo/<str:courseid>/<str:lectureno>/<str:videoname>', views.showvideo, name='showvideo'),
     path('edit_announcements', views.edit_announcements, name='edit_announcements'),
+    path('post_announcements', views.post_announcements, name='post_announcements'),
 ]
 

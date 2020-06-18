@@ -4,6 +4,10 @@ from django.contrib.auth.models import User, Group
 class Announcement(models.Model):
     title = models.CharField(max_length=200)
     information = models.CharField(max_length=500)
+    writer = models.ForeignKey(User, on_delete = models.DO_NOTHING)
+
+    def __str__(self):
+        return self.title
 
 class Grade(models.Model):
     LETTERGRADES = (
@@ -46,7 +50,6 @@ class Semester(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=100)
     credits = models.IntegerField()
-    professor = models.ForeignKey(User, limit_choices_to={'groups__name': "Professor"}, on_delete = models.DO_NOTHING)
     semester = models.ForeignKey(Semester, on_delete=models.DO_NOTHING)
 
     def __str__(self):

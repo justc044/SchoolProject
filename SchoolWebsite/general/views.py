@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
 from .models import Announcement, MemberInfo, MemberGrade, Course, Semester, Grade, Video, CourseProfessor
-from .forms import StudentInfoForm, GradeForm, VideoForm
+from .forms import StudentInfoForm, GradeForm
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
@@ -188,47 +188,16 @@ def upload(request):
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
 
-
-
 def uploadvideo(request):
 
-    """
-    lastvideo= Video.objects.last()
+    cp = CourseProfessor.objects.filter(professor = request.user).values_list('course_id', flat=True)
+    courses = Course.objects.filter(pk__in=cp)
+    videos = Video.objects.filter(professor=request.user)
 
-    if lastvideo is not None:
-        videofile= lastvideo.videofile
-    else:
-        videofile = None
-
-    form= VideoForm(request.POST or None, request.FILES or None, user=request.user)
-    
-    if form.is_valid():
-        form.save()
-
-    path = 'v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/'
-    redirect = 'http://121.140.73.126:38080'
-    max_file_size = 5368709121
-    max_file_count = 10
-    expires = int(time() + 600)
-    key = b"MYKEY"
-    hmac_body = '%s\n%s\n%s\n%s\n%s' % (path, redirect,max_file_size, max_file_count, expires)
-    signature = hmac.new(key, hmac_body.encode('utf-8'), sha1).hexdigest()
-
-#http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/
-    context= {'videofile': videofile,
-        'form': form,
-        'signature': signature,
-        'expires': expires,
-        'max_file_size': max_file_size,
-        'key': key,
-        'max_file_count': max_file_count,
-        'hmac_body': hmac_body}
-     """
-
-    courses = Course.objects.filter(professor=request.user)
     context = {
         'courses': courses
     }
+
     return render(request, 'videos.html', context)
 
 def showvideo(request, courseid, lectureno, videoname):
@@ -314,4 +283,25 @@ def redirect_view(request):
     return response
 
 def edit_announcements(request):
-    return render(request, 'announcement.html')
+
+    memberinfo = MemberInfo.objects.filter(user=request.user).first()
+
+    context = {
+        'memberinfo': memberinfo
+    }
+    return render(request, 'announcement.html', context=context)
+
+def post_announcements(request):
+    if request.method == 'POST':
+        ann_data = request.POST.dict()
+        title = ann_data.get("title")
+        info = ann_data.get("info")
+
+        ann = Announcement(writer=request.user, title=title, information=info)
+        ann.save()
+
+    context = {
+        'announcement': ann
+    }
+
+    return render(request, 'done_announcement.html', context=context)

@@ -1,5 +1,5 @@
 from django import forms
-from general.models import MemberInfo, MemberGrade, Grade, Video, Course
+from general.models import MemberInfo, MemberGrade, Grade, Video, Course, Announcement
 from django.contrib.auth.models import User
 
 REGSTATUS = [
@@ -33,13 +33,7 @@ class RegCoursesForm(forms.ModelForm):
 class GradeForm(forms.Form):
     value = forms.ChoiceField(choices=LETTERGRADES)
 
-class VideoForm(forms.ModelForm):
+class AnnouncementForm(forms.Form):
     class Meta:
-        model= Video
-        fields= ["name", "course", "lectureno"]
-
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
-        super().__init__(*args, **kwargs)
-        print(type(user))
-        self.fields['course'].queryset = Course.objects.filter(professor=user)
+        model = Announcement
+        fields = ['title', 'information', 'writer']
