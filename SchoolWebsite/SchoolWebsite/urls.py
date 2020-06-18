@@ -26,7 +26,7 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('signup/', views.signup, name='signup'),
     path('login/', views.loginDefined, name='loginDefined'),
-    path('signupprofessor/', views.signupprofessor, name='signupprofessor'),
+    #path('signupprofessor/', views.signupprofessor, name='signupprofessor'),
     path('', views.redirect_view, name='redirect_view')
 ]
 

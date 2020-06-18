@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
-from .models import Announcement, MemberInfo, MemberGrade, Course, Semester, Grade, Video
+from .models import Announcement, MemberInfo, MemberGrade, Course, Semester, Grade, Video, CourseProfessor
 from .forms import StudentInfoForm, GradeForm, VideoForm
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User, Group
@@ -9,9 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 import json
-import hmac
-from hashlib import sha1
-from time import time
 
 # Create your views here.
 def signup(request):
@@ -49,6 +46,7 @@ def loginDefined(request):
         return redirect('/general/')
     return redirect('/accounts/login/')
 
+"""
 def signupprofessor(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -56,18 +54,18 @@ def signupprofessor(request):
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            #user = authenticate(username=username, password=raw_password)
             group = Group.objects.get(name='Professor')
             user.groups.add(group)
             newmemberinfo = MemberInfo(user=user)
             newmemberinfo.registrationstatus = 'R'
             newmemberinfo.save()
-            login(request, user)
-            return redirect('/general/')
+            #login(request, user)
+            return HttpResponseRedirect('../accounts/login/')
     else:
         form = UserCreationForm()
     return render(request, 'signupprofessor.html', {'form': form})
-
+"""
 def index(request):
     ann = Announcement.objects.all()
 
@@ -144,8 +142,9 @@ def displaygrades(request):
     return render(request, 'displaygrades.html', context=context)
 
 def managegrades(request):
-    try: 
-        courses = Course.objects.filter(professor = request.user)
+    try:
+        cp = CourseProfessor.objects.filter(professor = request.user).values_list('course_id', flat=True)
+        courses = Course.objects.filter(pk__in=cp)
         membergrades = MemberGrade.objects.filter(course__in=courses)
         memberinfo = MemberInfo.objects.all()
     except (Course.DoesNotExist or MemberGrade.DoesNotExist):
@@ -163,7 +162,8 @@ def editgrades(request, pk):
     grades = Grade.objects.all()
     memberinfo = MemberInfo.objects.all()
     try: 
-        courses = Course.objects.filter(professor = request.user)
+        cp = CourseProfessor.objects.filter(professor = request.user).values_list('course_id', flat=True)
+        courses = Course.objects.filter(pk__in=cp)
         membergrades = MemberGrade.objects.filter(course__in=courses)
     except (Course.DoesNotExist):
         courses = None
@@ -296,7 +296,8 @@ def courses(request):
 def submitgrade(request, pk):
     grade_data = request.POST.dict()
     try: 
-        courses = Course.objects.filter(professor = request.user)
+        cp = CourseProfessor.objects.filter(professor = request.user).values_list('course_id', flat=True)
+        courses = Course.objects.filter(pk__in=cp)
         membergrades = MemberGrade.objects.filter(course__in=courses)
         editgrade = MemberGrade.objects.get(pk=pk)
     except (Course.DoesNotExist):

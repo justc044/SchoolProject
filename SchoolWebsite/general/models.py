@@ -52,6 +52,14 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+class CourseProfessor(models.Model):
+    professor = models.ForeignKey(User, limit_choices_to={'groups__name': "Professor"}, on_delete = models.DO_NOTHING)
+    course = models.ForeignKey(Course, on_delete = models.DO_NOTHING)
+    semester = models.ForeignKey(Semester, on_delete = models.DO_NOTHING)
+
+    def __str__(self):
+        return MemberInfo.objects.filter(user=self.professor).first().name + " " + self.course.name + " " + str(self.semester)
+
 class MemberGrade(models.Model):
     user = models.ForeignKey(User, on_delete = models.DO_NOTHING)
     semester = models.ForeignKey(Semester, on_delete = models.CASCADE)
@@ -79,6 +87,9 @@ class MemberInfo(models.Model):
     email = models.CharField(max_length=200, blank=True)
     phone = models.CharField(max_length=30, blank=True)
     address = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.name
 
 class Video(models.Model):
     name= models.CharField(max_length=500)
