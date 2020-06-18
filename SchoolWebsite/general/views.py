@@ -279,7 +279,7 @@ def submitgrade(request, pk):
     return redirect('/general/managegrades')
 
 def redirect_view(request):
-    response = redirect('/general/')
+    response = redirect('index')
     return response
 
 def edit_announcements(request):
