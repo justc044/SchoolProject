@@ -82,6 +82,7 @@ class MemberInfo(models.Model):
 
 class Video(models.Model):
     name= models.CharField(max_length=500)
+    professor = models.ForeignKey(User, limit_choices_to={'groups__name': "Professor"}, on_delete = models.DO_NOTHING)
     course = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
     lectureno = models.IntegerField()
 
