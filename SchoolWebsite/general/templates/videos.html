@@ -2,11 +2,13 @@
 
 {% block content %}
 
-<div class="card-body">
+<div id="card-body" class="card-body">
     <h5 class="card-title">강의 업로드</h5>
-        <p class="card-text">
+        <p id="contentcard" class="card-text">
 
         {% if perms.general.add_course %}
+
+            <div id="loader"></div>
             
             <!-- only show course for logged in professor -->
             <!-- save lectureno that doesn't duplicate -->
@@ -39,7 +41,27 @@
     </div>
 
     <script>
+        // loading
+        var myVar;
+        
+        document.getElementById('card-body').onload = function() {
+            hideLoader();
+        };
+
+        function getLoader() {
+            //myVar = setTimeout(showPage, 3000);
+            document.getElementById('contentcard').style.display = "none";
+            document.getElementById('loader').style.display = "block";
+        }
+        
+        function hideLoader() {
+            document.getElementById("loader").style.display = "none";
+            //document.getElementById("myDiv").style.display = "block";
+        }
+
         document.getElementById("fileSubmit").onclick = function(){
+
+            getLoader();
 
             // OpenStack Swift로 보냄
             var formData = new FormData();
@@ -56,9 +78,10 @@
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6IWPyS6N_s-uTRJYtGN1Laod90QUZcIPaFPrL_VOl_mSKEBJGYt45PqQs_u-2bynEMIhx8HKDoQmFtUwOeeDpe9xXPdRQO1Fn4_nW9XTFuCUt_o87lO__P3HCoJRqYEs3bJJ0Qu2VKIIrj2ffWu1ftse4woxxRXfg9osZckcSg0-64I");
             xhr.send(formData);
-            
+
             xhr.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 201) {
+                    hideLoader();
                     window.location.href = '/general/showvideo/' + document.getElementById("course").value + "/" + document.getElementById("lectureno").value + "/" + document.getElementById("videoname").value
 
                 }
