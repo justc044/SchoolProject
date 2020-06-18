@@ -305,3 +305,6 @@ def post_announcements(request):
     }
 
     return render(request, 'done_announcement.html', context=context)
+
+def videolecture(request):
+    return render(request, 'videolecture.html')

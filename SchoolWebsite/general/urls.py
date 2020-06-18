@@ -21,5 +21,6 @@ urlpatterns = [
     path('showvideo/<str:courseid>/<str:lectureno>/<str:videoname>', views.showvideo, name='showvideo'),
     path('edit_announcements', views.edit_announcements, name='edit_announcements'),
     path('post_announcements', views.post_announcements, name='post_announcements'),
+    path('videolecture', views.videolecture, name='videolecture'),
 ]
 
