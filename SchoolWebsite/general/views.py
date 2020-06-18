@@ -204,7 +204,7 @@ def showvideo(request, courseid, lectureno, videoname):
     course = Course.objects.filter(pk = courseid).first()
 
     # video 정보 DB에 저장
-    v = Video(name=videoname, course=course, lectureno=lectureno)
+    v = Video(name=videoname, professor=request.user, course=course, lectureno=lectureno)
     v.save()
 
     context = {
