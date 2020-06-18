@@ -60,17 +60,19 @@
     </head>
 
 <div class="card-body">
-    <h5 class="card-title">영상이 저장 되었습니다</h5>
+    <h5 class="card-title"></h5>
         <p class="card-text">
 
             <body onload="myFunction()" style="margin:0;">
 
                 <div id="loader"></div>
+
+                <h5>영상이 업로드 되었습니다</h5>
                 
                 <div style="display:none;" id="myDiv" class="animate-bottom">
-                  <p>{{ video.course.name }}</p><br>
-                  <p>{{ video.lectureno }}</p><br>
-                  <p>{{ video.name }}</p><br>
+                  <p>과목: {{ video.course.name }}</p>
+                  <p>강의 번호: {{ video.lectureno }}</p>
+                  <p>제목: {{ video.name }}</p><br>
                 </div>
 
     <script>
