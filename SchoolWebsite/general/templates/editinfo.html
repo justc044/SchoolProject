@@ -3,7 +3,7 @@
 {% block content %}
     
     <h3>{{ name }}</h3>
-    <form action="/general/edit/{{ pk }}" method="post">
+    <form action="/general/edit" method="post">
         {% csrf_token %}
         {{ form.non_field_errors }}
         

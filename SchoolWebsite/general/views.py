@@ -27,6 +27,7 @@ def signup(request):
 
         group = Group.objects.get(name='Student')
         user.groups.add(group)
+        user.save()
         newmemberinfo = MemberInfo(user=user)
         newmemberinfo.registrationstatus = 'R'
         newmemberinfo.name = name
@@ -87,9 +88,9 @@ def displayinfo(request):
     return render(request, 'displayinfo.html', context=context)
 
 def editinfo(request):
-    member = MemberInfo.objects.get(user = user.request)
+    member = MemberInfo.objects.get(user = request.user)
     context = {
-        'pk': user.request.pk,
+        'pk': request.user.pk,
         'name': member.name,
         'registrationstatus': member.registrationstatus,
         'contactinfo': member.contactinfo,
@@ -107,13 +108,13 @@ def editinfo(request):
     return render(request, 'editinfo.html', context=context)
 
 def studentinfoedit(request):
-    member = MemberInfo.objects.filter(user__pk = user.request.pk).first()
+    member = MemberInfo.objects.filter(user__pk = request.user.pk).first()
     form = StudentInfoForm(request.POST, instance=member)
     if form.is_valid():
         member = form.save()
         member.save()
         context={'form': form,
-            'pk': user.request.pk,
+            'pk': request.user.pk,
             'member': member,
         }
         return redirect('/general/displayinfo')
