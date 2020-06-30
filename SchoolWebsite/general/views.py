@@ -10,6 +10,7 @@ from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 import json
 
+
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -18,6 +19,7 @@ def signup(request):
         username = signup_data.get("username")
         password = signup_data.get("password")
         name = signup_data.get("name")
+        group = signup_data.get("group")
 
         try:
             user = User.objects.create_user(username, email=None, password=password)
@@ -25,7 +27,7 @@ def signup(request):
             return HttpResponseRedirect('/accounts/login')
         #user = authenticate(username=username, password=password)
 
-        group = Group.objects.get(name='Student')
+        group = Group.objects.get(name=group)
         user.groups.add(group)
         user.save()
         newmemberinfo = MemberInfo(user=user)
@@ -190,7 +192,6 @@ def upload(request):
     return render(request, 'upload.html', context)
 
 def uploadvideo(request):
-
     cp = CourseProfessor.objects.filter(professor = request.user).values_list('course_id', flat=True)
     courses = Course.objects.filter(pk__in=cp)
     videos = Video.objects.filter(professor=request.user)
@@ -202,6 +203,15 @@ def uploadvideo(request):
     return render(request, 'videos.html', context)
 
 def showvideo(request, courseid, lectureno, videoname):
+
+    # upload video to youtube
+    #execfile('upload_video.py 
+    #           --file= videopath
+    #           --title=videoname 
+    #           --keywords="lecture " + lectureno + " " + videoname
+    #           --category="22"
+    #           --privacyStatus="private"')
+
     course = Course.objects.filter(pk = courseid).first()
 
     # video 정보 DB에 저장

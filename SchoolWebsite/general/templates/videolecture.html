@@ -8,6 +8,8 @@
     Your browser does not support the video tag.
   </video>
 
+  <img id="image" src="" />
+
   <script>
         window.onload = function(){
 
@@ -19,15 +21,16 @@
                     alert(xhr.responseText);
                 }
             }*/
-            xhr.open("GET", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/1.%2Introduction%2to%2Superposition.mp4");
+            xhr.open("GET", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/flowers.jpg");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
-            xhr.setRequestHeader("Content-Type", "multipart/form-data");
-            xhr.setRequestHeader("X-Auth-Token", "gAAAAABe6v4pkEbAQQYKtBp_INWJQ57TZvfNSA5R-Ja8qlEQ1ncvir7h07aMVEWtTuzSHnc320UtFxjdhzVROmlFxL5kLR0EXG0PdTpZgNGgsYCtlX8Jn6ucDWf3CBJ5jVSsZrUbf03vn4rGtD4ikS7jyTFchMR7XQ-yHQewweVuj-3nAdJEy4w");
+            xhr.setRequestHeader("X-Auth-Token", "gAAAAABe8cduQZkGkKPHeVFFzL3hE3PCWcu43fSL5YAhtqtr277XBjveLt2f3PdbV3adoK_7tCnIKC_wU_GTP8X09VoGQ0F2LE8MaimCjWT2EZ4rEdGBkUutpaIS7EQc5y740KeYqW7Q-qfVkIMqpmCYzPfQdQtzA5chBJ_mJT4Yjrpsylg4tEA");
             xhr.send();
 
             xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 201) {
-                    document.getElementById("showvideo").setAttribute("src", xhr.responseText);
+                if (this.readyState == 4 && this.status == 200) {
+                    text = this.responseText;
+                    document.getElementById("image").setAttribute("src", "data:image/jpg;base64," + text.split('\n')[12]);
                 }
             };
         };
