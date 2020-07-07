@@ -2,38 +2,21 @@
 
 {% block content %}
 
-<video width="320" height="240" controls>
-    <source id="showvideo" src="" type="video/mp4">
-    <source src="movie.ogg" type="video/ogg">
-    Your browser does not support the video tag.
-  </video>
+<div id="card-body" class="card-body">
+        <br><br>
+        <video width='400' controls>
+        <source src='{{ MEDIA_URL }}1.%20Introduction%20to%20Superposition.mp4' type='video/mp4'>
+        Your browser does not support the video tag.
+        </video>
+        <br><br>
+        </p>
+        </body>
+        <script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'}),_trfd.push({'ap':'cpsh'},{'server':'p3plcpnl0769'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/tcc/tcc_l.combined.1.0.6.min.js'></script>
 
-  <img id="image" src="" />
+    <a href="/general/" class="btn btn-primary">뒤로</a>
+</div>
 
-  <script>
-        window.onload = function(){
-
-            // OpenStack Swift로 보냄
-            var xhr = new XMLHttpRequest();
-            /*
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == XMLHttpRequest.DONE) {
-                    alert(xhr.responseText);
-                }
-            }*/
-            xhr.open("GET", "http://121.140.73.126:38080/v1/AUTH_3e2da14f36094bf89e94683138e2da08/Videos/flowers.jpg");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-            xhr.setRequestHeader("X-Auth-Token", "gAAAAABe8cduQZkGkKPHeVFFzL3hE3PCWcu43fSL5YAhtqtr277XBjveLt2f3PdbV3adoK_7tCnIKC_wU_GTP8X09VoGQ0F2LE8MaimCjWT2EZ4rEdGBkUutpaIS7EQc5y740KeYqW7Q-qfVkIMqpmCYzPfQdQtzA5chBJ_mJT4Yjrpsylg4tEA");
-            xhr.send();
-
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    text = this.responseText;
-                    document.getElementById("image").setAttribute("src", "data:image/jpg;base64," + text.split('\n')[12]);
-                }
-            };
-        };
-  </script>
-
+<div id="myModal" class="modal">
+    <div class="loader"></div>
+</div>
 {% endblock %}
