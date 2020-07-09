@@ -256,12 +256,11 @@ def registercourses(request):
 def courses(request):
 
     userob = User.objects.get(pk=request.user.pk)
-    
     m_courses = MemberGrade.objects.filter(user = userob).values_list('course', flat=True)
-    print(m_courses)
+
     # Get the objects from the database
-    rawData = Course.objects.filter(semester__year=request.POST.get('year'), semester__type=request.POST.get('type')).exclude(pk__in=m_courses)
-    print(rawData)
+    rawData = Course.objects.filter(semester__year=request.POST['year'], semester__type=request.POST['type']).exclude(pk__in=m_courses)
+
     # Create array
     json_res = []
 

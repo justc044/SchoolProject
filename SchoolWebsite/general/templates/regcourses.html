@@ -97,29 +97,32 @@
 
             $('table').tablecheckbox();
 
-            $("#getCourses").click(function(){
+                $("#getCourses").click(function(){
 
-                $("#tablebody").empty();
-                table.clear()
+                    $("#tablebody").empty();
+                    table.clear()
 
-                $.ajax({
-                    type: "POST",
-                    url: "http://127.0.0.1:8000/general/courses/", 
-                    data: {
-                        'year': $('#semester option:selected').attr('data-year'), 
-                        'type': $('#semester option:selected').attr('data-type')                        
-                    },
-                    headers: {'X-CSRFToken': csrftoken},
-                    success: function(result){
-                        for (var i = 0; i < result.length; i++){
-                            table.row.add(['<input type="checkbox" name="course" value="' + result[i].id + '"></input>', result[i].name, result[i].professor]);
+                    $.ajax({
+                        type: "POST",
+                        url: "http://ec2-52-79-79-26.ap-northeast-2.compute.amazonaws.com/general/courses/", 
+                        data: {
+                            'year': $('#semester option:selected').attr('data-year'), 
+                            'type': $('#semester option:selected').attr('data-type')                        
+                        },
+                        headers: {'X-CSRFToken': csrftoken},
+                        success: function(result){
+
+                            for (var i = 0; i < result.length; i++){
+                                table.row.add(['<input type="checkbox" name="course" value="' + result[i].id + '"></input>', result[i].name, result[i].professor]);
+                            }
+
+                            table.draw();
+                        },
+                        error: function(){
+                            alert('error');
                         }
-                        table.draw();
-                    },
-                    error: function(){
-                        alert('error');
-                    }
-                });
+                    
+                    });
             });
         });
         
